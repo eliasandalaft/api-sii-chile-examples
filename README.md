@@ -139,7 +139,8 @@ Si trae una fecha, la empresa cesó actividades en esa fecha.
 ## Postman
 
 Colección pública con los 5 casos de respuesta (200, 400, 401, 404, 429):
-[Ver / hacer fork en Postman](https://www.postman.com/eliasandalafts-team/workspace/my-workspace/collection/22275494-b3ed915d-3506-4f98-852c-ee150471b46a)
+
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/22275494-b3ed915d-3506-4f98-852c-ee150471b46a?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D22275494-b3ed915d-3506-4f98-852c-ee150471b46a%26entityType%3Dcollection%26workspaceId%3Ddb6723a9-17ce-41e8-878f-e18146c6c4da)
 
 También disponible como archivo para importar manualmente:
 [`examples/postman/API_SII_Chile.postman_collection.json`](./examples/postman/API_SII_Chile.postman_collection.json)
