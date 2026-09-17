@@ -1,0 +1,30 @@
+{
+    "name": "webempresario/api-sii-chile",
+    "description": "Cliente PHP para la API SII Chile: consulta empresas chilenas por RUT (razón social, giro, actividades económicas, domicilios con coordenadas GPS incluidas).",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://api-sii-chile.webempresario.com/",
+    "keywords": ["chile", "sii", "rut", "api", "empresas", "geocoding", "tax", "contribuyente"],
+    "authors": [
+        {
+            "name": "Webempresario",
+            "email": "contacto@webempresario.com",
+            "homepage": "https://webempresario.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/eliasandalaft/api-sii-chile-examples/issues",
+        "source": "https://github.com/eliasandalaft/api-sii-chile-examples"
+    },
+    "require": {
+        "php": ">=7.4",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Webempresario\\ApiSiiChile\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

@@ -42,6 +42,32 @@ Ejemplos completos en varios lenguajes en [`examples/`](./examples):
 - [Python](./examples/python)
 - [PHP](./examples/php)
 
+## Cliente PHP (Composer)
+
+Este repo también es un paquete de Composer instalable:
+
+```bash
+composer require webempresario/api-sii-chile
+```
+
+```php
+use Webempresario\ApiSiiChile\Client;
+use Webempresario\ApiSiiChile\ApiException;
+
+$client = new Client('TU_API_KEY');
+
+try {
+    $empresa = $client->consultarRut('93834000-5');
+    echo $empresa['RAZON_SOCIAL'];
+
+    foreach ($empresa['domicilios'] as $domicilio) {
+        echo $domicilio['GEO']['LAT'] . ', ' . $domicilio['GEO']['LON'];
+    }
+} catch (ApiException $e) {
+    echo 'Error: ' . $e->getMessage();
+}
+```
+
 ## Endpoint
 
 ### `GET /v1/{rut}`
