@@ -136,6 +136,13 @@ Si trae una fecha, la empresa cesó actividades en esa fecha.
 | `404`  | RUT no encontrado en el padrón del SII     |
 | `429`  | Límite de consultas por minuto excedido    |
 
+## Postman
+
+Colección lista para importar con los 5 casos de respuesta (200, 400, 401, 404, 429):
+[`examples/postman/API_SII_Chile.postman_collection.json`](./examples/postman/API_SII_Chile.postman_collection.json)
+
+En Postman: **Import** → pega la URL raw de ese archivo en GitHub (o arrástralo). Luego configura la variable de colección `apiKey` con tu API Key.
+
 ## Guías
 
 - [Cómo buscar una empresa por su RUT en el SII](https://api-sii-chile.webempresario.com/guias/buscar-empresa-por-rut/)

@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "a1e6c8b2-4f3d-4e2a-9c1b-3d5f7a9e0b12",
+		"name": "API SII Chile",
+		"description": "API REST para consultar datos de empresas chilenas por RUT: razón social, giro, actividades económicas, domicilios (con coordenadas GPS incluidas) y vigencia — directo del padrón público del SII, sin necesidad de credenciales tributarias.\n\n**Sitio:** https://api-sii-chile.webempresario.com\n**Registro (25 consultas gratis):** https://api-sii-chile.webempresario.com/#precios\n\n## Autenticación\n\nTodas las consultas requieren tu API Key personal en el header `X-Api-Key`. La obtienes al registrarte en el sitio.\n\nEsta colección usa la variable de colección `apiKey` — configúrala en la pestaña *Variables* con tu clave antes de enviar requests.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "0"
+	},
+	"item": [
+		{
+			"name": "Consultar empresa por RUT",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Api-Key",
+						"value": "{{apiKey}}",
+						"description": "Tu API Key personal (obtenida al registrarte en el sitio)"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/v1/{{rut}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"v1",
+						"{{rut}}"
+					]
+				},
+				"description": "Consulta una empresa chilena por su RUT (con dígito verificador, separado por guión, ej: `93834000-5`).\n\nDevuelve razón social, tipo de contribuyente, vigencia, actividades económicas y todos los domicilios registrados (incluye coordenadas GPS cuando están disponibles)."
+			},
+			"response": [
+				{
+					"name": "200 OK - Empresa encontrada",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/93834000-5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"93834000-5"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"body": "{\n  \"success\": true,\n  \"data\": {\n    \"RUT\": 93834000,\n    \"DV\": \"5\",\n    \"TIPO\": \"PERSONA JURIDICA COMERCIAL\",\n    \"RAZON_SOCIAL\": \"FRIGORIFICO DE OSORNO S A\",\n    \"FECHA_INICIO_VIG\": \"01-01-1993\",\n    \"FECHA_TG_VIG\": \"\",\n    \"actividades\": [\n      {\n        \"CODIGO_ACTIVIDAD\": 101020,\n        \"DESC_ACTIVIDAD\": \"ELABORACION Y CONSERVACION DE CARNE Y PRODUCTOS CARNICOS\",\n        \"FECHA_ACTECO\": \"02-12-2003\",\n        \"AFECTA_IVA\": \"S\"\n      }\n    ],\n    \"domicilios\": [\n      {\n        \"CALLE\": \"AVDA LUIS PASTEUR\",\n        \"NUMERO\": \"5753\",\n        \"COMUNA\": \"VITACURA\",\n        \"REGION\": \"XIII REGION METROPOLITANA\",\n        \"TIPO_DIRECCION\": \"SUCURSAL\",\n        \"GEO\": {\n          \"LAT\": -33.389425839393944,\n          \"LON\": -70.5782439969697,\n          \"PRECISION\": \"exacta\"\n        }\n      }\n    ]\n  }\n}"
+				},
+				{
+					"name": "400 Bad Request - RUT inválido",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/12345678-9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"12345678-9"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"body": "{\n  \"error\": \"bad_request\",\n  \"message\": \"Dígito verificador incorrecto\"\n}"
+				},
+				{
+					"name": "401 Unauthorized - API Key inválida",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "invalida"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/93834000-5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"93834000-5"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Token inválido o inactivo\"\n}"
+				},
+				{
+					"name": "404 Not Found - RUT no existe en el padrón",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/1-9",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"1-9"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"body": "{\n  \"success\": false,\n  \"message\": \"RUT no encontrado en el padrón del SII\"\n}"
+				},
+				{
+					"name": "429 Too Many Requests - Límite excedido",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Api-Key",
+								"value": "{{apiKey}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v1/93834000-5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v1",
+								"93834000-5"
+							]
+						}
+					},
+					"status": "Too Many Requests",
+					"code": 429,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"body": "{\n  \"error\": \"rate_limited\",\n  \"message\": \"Límite de 60 requests/minuto excedido. Reintenta en unos segundos.\"\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api-sii-chile.webempresario.com",
+			"type": "string"
+		},
+		{
+			"key": "rut",
+			"value": "93834000-5",
+			"type": "string",
+			"description": "RUT de ejemplo (con DV) para probar la colección"
+		},
+		{
+			"key": "apiKey",
+			"value": "TU_API_KEY",
+			"type": "string",
+			"description": "Reemplaza con tu API Key personal, obtenida en https://api-sii-chile.webempresario.com/#precios"
+		}
+	]
+}
